@@ -131,3 +131,5 @@ dmypy.json
 
 # API Keys
 config.py
+# test notebook
+explore.ipynb 
