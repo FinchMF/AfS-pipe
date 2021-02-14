@@ -1,0 +1,4 @@
+
+pandas==1.2.0
+requests==2.22.0
+wget==3.2
