@@ -74,7 +74,7 @@ if __name__ == '__main__':
         "lofi beats"
         ]
     print(f"Seeking Genres: {genres}")
-    outload_location = '/Volumes/S_4/spotify_payload/dataset_2'
+    outload_location = '<diectory for resulting wav files>' 
     data_fname = f'{outload_location}/{date}_meta.csv'
     
 
