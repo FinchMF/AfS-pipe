@@ -39,21 +39,21 @@ def divide_tracks(wav_fp: str, duration_seconds: float, verbose: bool = False) -
     return [list(divider), wav, wav_fp]
 
 
-def sample_divisions(divisions: List[Any], wav: WAV, wav_fp: str, filenum: int, root: str) -> None:
+def sample_divisions(divisions: List[Any], wav: WAV, wav_fp: str, filenum: int, root: str, g_number: int) -> None:
 
     sci_wav = read(wav_fp)
     count = 0
 
     for div in divisions:
 
-        fname = f"{root}/wav_{filenum}_{count}.wav"
+        fname = f"{root}/wav_{g_number}_{filenum}_{count}.wav"
 
         write(fname, wav.getframerate(), sci_wav[1][div[0]:div[1]])
 
         count += 1
 
 
-def spilt_wav_by_seconds(wav_list: List[str], seconds: int, root: str) -> None:
+def spilt_wav_by_seconds(wav_list: List[str], seconds: int, root: str, g_number: int) -> None:
 
 
     for idx, wav in enumerate(wav_list):
@@ -64,7 +64,8 @@ def spilt_wav_by_seconds(wav_list: List[str], seconds: int, root: str) -> None:
                         wav=data[1],
                         wav_fp=data[2],
                         filenum=idx, 
-                        root=root)
+                        root=root,
+                        g_number=g_number)
 
     
 
