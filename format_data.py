@@ -2,28 +2,42 @@
 import os
 import glob
 from tools import wav_utils
+
+import warnings
+warnings.filterwarnings("ignore", message='PySoundFile failed. Trying audioread instead.')
  
 
 
 def split_wavs(root: str, seconds: int) -> None:
 
-    genre_dirs = glob.glob(root)
+    """
+    recieves directory of genre datasets and the seconds of equal divisons for each wav
+    """
+
+    genre_dirs = glob.glob(f"{root}/*")
+
     g_number = 0
     for genre in genre_dirs:
 
-        formatted = f"{root}/{genre}/formatted"
-        wavs = glob.glob(f"{root}/{genre}")
+        if genre[-3:] == 'csv' or genre[-3:] == 'wav':
 
-        if not os.path.exists(formatted):
+            continue
+        else:
 
-            os.mkdir(formatted)
+            print(f'Getting {genre} formatted wavs')
+            formatted = f"{genre}/formatted"
+            wavs = glob.glob(f"{genre}/*")
 
-        wav_utils.spilt_wav_by_seconds(wav_list=wavs, 
-                                       seconds=seconds, 
-                                       root=formatted, 
-                                       g_number=g_number)
+            if not os.path.exists(formatted):
 
-        g_number += 1
+                os.mkdir(formatted)
+
+            wav_utils.spilt_wav_by_seconds(wav_list=wavs, 
+                                        seconds=seconds, 
+                                        root=formatted, 
+                                        g_number=g_number)
+
+            g_number += 1
 
         
 
@@ -31,7 +45,7 @@ def split_wavs(root: str, seconds: int) -> None:
 
 if __name__ == '__main__':
 
-    root = '<directory for resulting wav files>'
+    root = '<dataset directory>'
 
     split_wavs(root=root, seconds=10)
 
